@@ -13,7 +13,7 @@ import { DishService } from '../services/dish.service';
   styleUrls: ['./dishdetail.component.scss']
 })
 export class DishdetailComponent implements OnInit {
-
+  
   dish:  Dish;
   
   constructor(private dishservice: DishService,
@@ -22,7 +22,7 @@ export class DishdetailComponent implements OnInit {
 
   ngOnInit() {
     const id = +this.route.snapshot.params['id'];
-    this.dish = this.dishservice.getDish();
+    this.dish = this.dishservice.getDish('');
   }
 
   goBack(): void {

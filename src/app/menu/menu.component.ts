@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
+import { LeaderService } from '../services/leader.service';
+import { Leader } from '../shared/leader';
 
 @Component({
   selector: 'app-menu',
@@ -9,16 +11,22 @@ import { DishService } from '../services/dish.service';
 })
 export class MenuComponent implements OnInit {
   dishes: Dish[];
-
+  leaders: Leader[];
   selectedDish: Dish;
-  constructor(private dishService: DishService) { }
+  selectedLeader: Leader;
+
+  
+  constructor(private dishService: DishService,
+    private leaderService: LeaderService) { }
 
   ngOnInit() {
     this.dishes = this.dishService.getDishes();
+    this.leaders = this.leaderService.getLeaders();
   }
 
-  onSelect(dish: Dish) {
+  onSelect(dish: Dish, leader: Leader) {
   this.selectedDish = dish;
+  this.selectedLeader = leader;
   }
 
 }
