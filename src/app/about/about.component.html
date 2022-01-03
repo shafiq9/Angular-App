@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-  
+
   <div fxFlex>
     <mat-card>
       <blockquote>
@@ -56,11 +56,19 @@
 
   <div fxFlex>
     <h2>Corporate Leadership</h2>
-    <mat-list *ngFor="let item of leader.leader;">
-      <mat-list-item *ngIf="leader">
-        <h3 matLine> {{item.leader}} </h3>
-      </mat-list-item>
-    </mat-list>
-  </div>
+    <div class="container"
+     fxLayout="column"
+     fxLayoutGap="10px">
+     <mat-list fxFlex>
+      <mat-list-item *ngFor="let leader of leaders">
+        <img matListAvatar src={{leader.image}} alt={{leader.name}}>
+        <h1 matLine> {{leader.name}} </h1>
+        <p matLine>
+          <span>{{leader.designation}}<br>{{leader.description}} </span>
 
+        </p>
+      </mat-list-item>
+     </mat-list>
+    </div>
+  </div>
 </div>

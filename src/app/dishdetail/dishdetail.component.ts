@@ -13,9 +13,9 @@ import { DishService } from '../services/dish.service';
   styleUrls: ['./dishdetail.component.scss']
 })
 export class DishdetailComponent implements OnInit {
-  
+
   dish:  Dish;
-  
+
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
     private location: Location) { }
@@ -28,5 +28,4 @@ export class DishdetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
-
 }
