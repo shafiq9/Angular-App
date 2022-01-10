@@ -20,9 +20,8 @@ export class MenuComponent implements OnInit {
     private leaderService: LeaderService) { }
 
   ngOnInit() {
-    this.dishService.getDishes().then((dishes) => this.dishes = dishes);
-    this.leaderService.getLeaders().then((leaders) => this.leaders = leaders);
-    // this.leaders = this.leaderService.getLeaders();
+    this.dishService.getDishes().subscribe((dishes) => this.dishes = dishes);
+    this.leaderService.getLeaders().subscribe((leaders) => this.leaders = leaders);
   }
 
   onSelect(dish: Dish, leader: Leader) {
