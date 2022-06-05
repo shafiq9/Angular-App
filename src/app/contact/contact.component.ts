@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
-import { flyInOut, } from '../animations/app.animation';
+import { flyInOut, visibility } from '../animations/app.animation';
+import { FeedbackService } from '../services/feedback.service';
+import { ActivatedRoute, Params } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contact',
@@ -12,7 +15,8 @@ import { flyInOut, } from '../animations/app.animation';
     'style': 'display: block;'
     },
     animations: [
-      flyInOut()
+      flyInOut(),
+      visibility()
     ]
 })
 
@@ -20,8 +24,13 @@ export class ContactComponent implements OnInit {
 
   feedbackForm: FormGroup;
   feedback: Feedback;
+  errMess: string;
+  feedbackcopy: Feedback;
+  visibility = 'hidden';
   contactType = ContactType;
   @ViewChild('fform') feedbackFormDirective;
+  waitingForResponse = false;
+  isHidden = false;
 
   formErrors = {
     'firstname': '',
@@ -51,11 +60,14 @@ export class ContactComponent implements OnInit {
     },
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private feedbackService: FeedbackService,
+    private route: ActivatedRoute) {
     this.createForm();
   }
 
   ngOnInit() {
+
   }
 
   createForm(): void {
@@ -96,8 +108,20 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit() {
+    this.waitingForResponse = true;
+    this.isHidden = true;
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
+    this.feedbackService.submitFeedback(this.feedback)
+    .subscribe(feedbackResponse => {
+      this.waitingForResponse = false;
+      this.feedback = feedbackResponse;
+      this.visibility = 'shown';
+      setTimeout(() => {
+        this.visibility = 'hidden';
+        this.isHidden = false;
+      }, 5000)
+    });
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
