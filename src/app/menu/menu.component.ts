@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
 import { LeaderService } from '../services/leader.service';
@@ -12,20 +12,19 @@ import { Leader } from '../shared/leader';
 export class MenuComponent implements OnInit {
   dishes: Dish[];
   leaders: Leader[];
-  selectedDish: Dish;
   selectedLeader: Leader;
 
 
   constructor(private dishService: DishService,
-    private leaderService: LeaderService) { }
+    private leaderService: LeaderService,
+    @Inject('baseURL') private baseURL) { }
 
   ngOnInit() {
     this.dishService.getDishes().subscribe((dishes) => this.dishes = dishes);
     this.leaderService.getLeaders().subscribe((leaders) => this.leaders = leaders);
   }
 
-  onSelect(dish: Dish, leader: Leader) {
-  this.selectedDish = dish;
+  onSelect(leader: Leader) {
   this.selectedLeader = leader;
   }
 

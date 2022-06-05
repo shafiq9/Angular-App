@@ -36,6 +36,9 @@ import { LeaderService } from './services/leader.service';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { LoginComponent } from './login/login.component';
 
+import { baseURL } from './shared/baseurl';
+import { HttpModule } from '@angular/http';
+
 
 @NgModule({
   declarations: [
@@ -55,6 +58,7 @@ import { LoginComponent } from './login/login.component';
     FlexLayoutModule,
     AppRoutingModule,
     HttpClientModule,
+    HttpModule,
     MatToolbarModule,
     MatListModule,
     MatGridListModule,
@@ -75,6 +79,7 @@ import { LoginComponent } from './login/login.component';
     DishService,
     PromotionService,
     LeaderService,
+    {provide: 'BaseURL', useValue: baseURL}
   ],
   entryComponents: [
     LoginComponent
