@@ -4,6 +4,7 @@ import { DishService } from '../services/dish.service';
 import { LeaderService } from '../services/leader.service';
 import { Leader } from '../shared/leader';
 
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -17,7 +18,7 @@ export class MenuComponent implements OnInit {
 
   constructor(private dishService: DishService,
     private leaderService: LeaderService,
-    @Inject('baseURL') private baseURL) { }
+    @Inject('BaseURL') private BaseURL) { }
 
   ngOnInit() {
     this.dishService.getDishes().subscribe((dishes) => this.dishes = dishes);
